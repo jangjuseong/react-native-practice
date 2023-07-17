@@ -1,19 +1,17 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet} from 'react-native';
+import {SafeAreaView, View} from 'react-native';
 import DateHead from './components/DateHead';
 
-function App() {
+export default function App() {
   const today = new Date();
-  console.log(today);
-  console.log('디버깅 테스트');
 
   return (
     <SafeAreaView>
-      <DateHead />
+      <View>
+        <DateHead date={today} />
+      </View>
     </SafeAreaView>
   );
 }
 
-const styles = StyleSheet.create({});
-
-export default App;
+// const styles = StyleSheet.create({});

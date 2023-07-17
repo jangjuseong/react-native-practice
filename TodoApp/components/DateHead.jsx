@@ -1,11 +1,20 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StatusBar, StyleSheet, Text, View} from 'react-native';
 
-export default function DateHead() {
+export default function DateHead({date}) {
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+
+  const formatted = `${year}년 ${month}월 ${day}일`;
+
   return (
-    <View style={styles.block}>
-      <Text style={styles.dateText}>2023년 7월 17일</Text>
-    </View>
+    <>
+      <StatusBar backgroundColor="#26a69a" />
+      <View style={styles.block}>
+        <Text style={styles.dateText}>{formatted}</Text>
+      </View>
+    </>
   );
 }
 
