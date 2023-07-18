@@ -26,10 +26,21 @@ export default function App() {
     setTodos(todos.concat(todo));
   };
 
+  const onToggle = id => {
+    const nextTodos = todos.map(todo =>
+      todo.id === id ? {...todo, done: !todo.done} : todo,
+    );
+    setTodos(nextTodos);
+  };
+
   return (
     <SafeAreaView edges={['bottom']} style={styles.block}>
       <DateHead date={today} />
-      {todos.length === 0 ? <Empty /> : <TodoList todos={todos} />}
+      {todos.length === 0 ? (
+        <Empty />
+      ) : (
+        <TodoList todos={todos} onToggle={onToggle} />
+      )}
       <AddTodo onInsert={onInsert} />
     </SafeAreaView>
   );
