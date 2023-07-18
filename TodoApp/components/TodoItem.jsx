@@ -1,11 +1,16 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, View} from 'react-native';
 
 const TodoItem = ({id, text, done}) => {
   return (
     <View style={styles.item}>
-      <View style={[styles.circle, done && styles.filled]} />
-      {/* {done && <Image></Image>} */}
+      <View style={[styles.circle, done && styles.filled]}>
+        {done && (
+          <Image
+            source={require('../assets/icons/check_white/check_white.png')}
+          />
+        )}
+      </View>
       <Text style={[styles.text, done && styles.lineThrough]}>{text}</Text>
     </View>
   );
