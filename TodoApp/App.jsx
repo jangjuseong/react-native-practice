@@ -33,13 +33,18 @@ export default function App() {
     setTodos(nextTodos);
   };
 
+  const onRemove = id => {
+    const nextTodos = todos.filter(todo => todo.id !== id);
+    setTodos(nextTodos);
+  };
+
   return (
     <SafeAreaView edges={['bottom']} style={styles.block}>
       <DateHead date={today} />
       {todos.length === 0 ? (
         <Empty />
       ) : (
-        <TodoList todos={todos} onToggle={onToggle} />
+        <TodoList todos={todos} onToggle={onToggle} onRemove={onRemove} />
       )}
       <AddTodo onInsert={onInsert} />
     </SafeAreaView>
