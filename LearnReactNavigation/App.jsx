@@ -1,62 +1,53 @@
+import {createDrawerNavigator} from '@react-navigation/drawer';
 import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
-import DetailScreen from './screens/DetailScreen';
-import HeaderlessScreen from './screens/HeaderlessScreen';
-import HomeScreen from './screens/HomeScreen';
+import {Button, Text, View} from 'react-native';
 
-const Stack = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
+
+function HomeScreen({navigation}) {
+  return (
+    <View>
+      <Text>Home</Text>
+      <Button title="Drawer 열기" onPress={() => navigation.openDrawer()} />
+      <Button
+        title="Setting 열기"
+        onPress={() => navigation.navigate('Setting')}
+      />
+    </View>
+  );
+}
+
+function SettingScreen({navigation}) {
+  return (
+    <View>
+      <Text>Setting</Text>
+      <Button title="뒤로가기" onPress={() => navigation.goBack()} />
+    </View>
+  );
+}
 
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen
+      <Drawer.Navigator
+        initialRouteName="Home"
+        backBehavior="history"
+        screenOptions={{
+          drawerActiveBackgroundColor: '#fb8c00',
+          drawerActiveTintColor: 'white',
+        }}>
+        <Drawer.Screen
           name="Home"
           component={HomeScreen}
-          options={{
-            title: '홈',
-            headerStyle: {backgroundColor: '#29b6f6'},
-            headerTintColor: '#ffffff',
-            headerTitleStyle: {
-              fontWeight: 'bold',
-              fontSize: 20,
-            },
-          }}
+          options={{title: '홈'}}
         />
-        <Stack.Screen
-          name="Detail"
-          component={DetailScreen}
-          options={{
-            headerBackVisible: false,
-            // eslint-disable-next-line react/no-unstable-nested-components
-            headerLeft: ({onPress}) => (
-              <TouchableOpacity onPress={onPress}>
-                <Text>Left</Text>
-              </TouchableOpacity>
-            ),
-
-            // eslint-disable-next-line react/no-unstable-nested-components
-            headerTitle: ({children}) => (
-              <View>
-                <Text>{children}</Text>
-              </View>
-            ),
-            // eslint-disable-next-line react/no-unstable-nested-components
-            headerRight: () => (
-              <View>
-                <Text>Right</Text>
-              </View>
-            ),
-          }}
+        <Drawer.Screen
+          name="Setting"
+          component={SettingScreen}
+          options={{title: '설정'}}
         />
-        <Stack.Screen
-          name="Headerless"
-          component={HeaderlessScreen}
-          options={{headerShown: false}}
-        />
-      </Stack.Navigator>
+      </Drawer.Navigator>
     </NavigationContainer>
   );
 };
