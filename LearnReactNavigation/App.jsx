@@ -1,53 +1,78 @@
-import {createDrawerNavigator} from '@react-navigation/drawer';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
-import {Button, Text, View} from 'react-native';
+import {Text} from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
-const Drawer = createDrawerNavigator();
+const Tab = createBottomTabNavigator();
 
-function HomeScreen({navigation}) {
-  return (
-    <View>
-      <Text>Home</Text>
-      <Button title="Drawer 열기" onPress={() => navigation.openDrawer()} />
-      <Button
-        title="Setting 열기"
-        onPress={() => navigation.navigate('Setting')}
-      />
-    </View>
-  );
+function HomeScreen() {
+  return <Text>Home</Text>;
 }
 
-function SettingScreen({navigation}) {
-  return (
-    <View>
-      <Text>Setting</Text>
-      <Button title="뒤로가기" onPress={() => navigation.goBack()} />
-    </View>
-  );
+function SearchScreen() {
+  return <Text>Search</Text>;
+}
+
+function NotificationScreen() {
+  return <Text>Notification</Text>;
+}
+
+function MessageScreen() {
+  return <Text>Message</Text>;
 }
 
 const App = () => {
   return (
     <NavigationContainer>
-      <Drawer.Navigator
+      <Tab.Navigator
         initialRouteName="Home"
-        backBehavior="history"
-        screenOptions={{
-          drawerActiveBackgroundColor: '#fb8c00',
-          drawerActiveTintColor: 'white',
-        }}>
-        <Drawer.Screen
+        tabBarOptions={{activeTintColor: '#fb8c00', showLabel: false}}>
+        <Tab.Screen
           name="Home"
           component={HomeScreen}
-          options={{title: '홈'}}
+          options={{
+            title: '홈',
+            // eslint-disable-next-line react/no-unstable-nested-components
+            tabBarIcon: ({color, size}) => (
+              <Icon name="home" color={color} size={size} />
+            ),
+          }}
         />
-        <Drawer.Screen
-          name="Setting"
-          component={SettingScreen}
-          options={{title: '설정'}}
+        <Tab.Screen
+          name="Search"
+          component={SearchScreen}
+          options={{
+            title: '검색',
+            // eslint-disable-next-line react/no-unstable-nested-components
+            tabBarIcon: ({color, size}) => (
+              <Icon name="search" color={color} size={size} />
+            ),
+          }}
         />
-      </Drawer.Navigator>
+        <Tab.Screen
+          name="Notification"
+          component={NotificationScreen}
+          options={{
+            title: '알림',
+            // eslint-disable-next-line react/no-unstable-nested-components
+            tabBarIcon: ({color, size}) => (
+              <Icon name="notifications" color={color} size={size} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Message"
+          component={MessageScreen}
+          options={{
+            title: '메시지',
+            // eslint-disable-next-line react/no-unstable-nested-components
+            tabBarIcon: ({color, size}) => (
+              <Icon name="message" color={color} size={size} />
+            ),
+          }}
+        />
+      </Tab.Navigator>
     </NavigationContainer>
   );
 };
